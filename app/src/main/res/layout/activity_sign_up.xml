@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:onClick="onclickCancel"
                 android:text="CANCEL"
                 app:cornerRadius="20dp" />
         </LinearLayout>
@@ -78,7 +79,7 @@
             app:boxCornerRadiusTopStart="20dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etShortTitle"
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
