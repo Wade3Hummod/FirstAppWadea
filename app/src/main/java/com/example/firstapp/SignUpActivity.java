@@ -31,10 +31,11 @@ public class  SignUpActivity extends AppCompatActivity
         etText=findViewById(R.id.etText);
         etRe_password=findViewById(R.id.etRe_password);
 
-        public void onclickCancel(View v)
-        {
-            finish();
 
-        }
+    }
+    public void onclickCancel(View v)
+    {
+        finish();
+
     }
 }
