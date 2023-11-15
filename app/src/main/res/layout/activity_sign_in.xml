@@ -44,7 +44,7 @@
             android:id="@+id/btnSignIn1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onclickGo2"
+            android:onClick="onclicksignIn"
             android:text="SIGIN IN" />
 
         <Button
