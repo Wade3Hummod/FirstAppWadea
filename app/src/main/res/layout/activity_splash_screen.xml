@@ -14,7 +14,8 @@
         android:layout_marginTop="16dp"
         android:text="Welcome To My App"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="99dp" />
+        tools:layout_editor_absoluteX="99dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -22,5 +23,6 @@
         android:layout_height="207dp"
         app:srcCompat="@drawable/parkingg"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="210dp" />
+        tools:layout_editor_absoluteY="210dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

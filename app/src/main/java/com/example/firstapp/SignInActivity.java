@@ -27,11 +27,22 @@ public class SignInActivity extends AppCompatActivity
         btnSingUp2=findViewById(R.id.btnSingUp2);
         btnSignIn1=findViewById(R.id.btnSignIn1);
     }
+
     public void onclickSignUp(View v)
     {
 
         Intent i = new Intent(SignInActivity.this, SignUpActivity.class);
         startActivity(i);
+    }
+    private void checkEmailPassw()
+    {
+        boolean isAllok =true;
+        String email=etEmail.getText().toString();
+        String password=etPassword.getText().toString();
+        if(email.length()<6 || email.contains("@")==false)
+        {
+            isAllok=false;
+        }
     }
 
 }
