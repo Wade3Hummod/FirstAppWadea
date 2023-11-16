@@ -57,6 +57,13 @@ public class SignInActivity extends AppCompatActivity
         {
             Toast.makeText(this, "ALL OK", Toast.LENGTH_SHORT).show();
         }
+        if(isAllok)
+        {
+            Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
+            AppDataBase db=AppDataBase.getDB()
+
+        }
     }
+
 
 }
