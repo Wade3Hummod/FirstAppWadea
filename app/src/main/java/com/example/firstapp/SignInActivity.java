@@ -39,34 +39,37 @@ public class SignInActivity extends AppCompatActivity
     {
         checkEmailPassw();
     }
-    private void checkEmailPassw()
-    {
-        boolean isAllok =true;
-        String email=etEmail.getText().toString();
-        String password=etPassword.getText().toString();
-        if(email.length()<6 || email.contains("@")==false)
-        {
+    private void    checkEmailPassw() {
+        boolean isAllok = true;
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+        if (email.length() < 6 || email.contains("@") == false) {
             isAllok = false;
             etEmail.setError("Wrong Email");
         }
-        if(password.length()< 8 || password.contains(" ")==true) {
+        if (password.length() < 8 || password.contains(" ") == true) {
             isAllok = false;
             etPassword.setError("Wrong password");
         }
-        if(isAllok)
-        {
+        if (isAllok) {
             Toast.makeText(this, "ALL OK", Toast.LENGTH_SHORT).show();
         }
-        if(isAllok)
-        {
+        if (isAllok) {
             Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
             //بناء قاعدة بيانات وارجاع مؤشر عليها1
-            AppDataBase db=AppDataBase.getDB(getApplicationContext());
+            AppDataBase db = AppDataBase.getDB(getApplicationContext());
             //مؤشر لكائن عمليات الجدول2
-            MyUserQuery userQuery=db.getMyUserQuery;
+            MyUserQuery userQuery = db.getMyUserQuery;
             // 3.استدعاء العملية التي تنفذ الاستعلام الذي يفحص البريد وكلمة السر ويعيد كائنا ان كان موجود او ان لم يكن موجود null
-            MyUser myUser=userQuery
+            MyUser myUser = userQuery.checkEmailPassw(email, password);
+            if (myUser == null)//هل يوجد كائن حسب الايميل والباسورد
+                Toast.makeText(this, "Wrong Email Or Password", Toast.LENGTH_SHORT).show();
+            else {//ان كان هنالك حساب الايميل والباسورد ننتقل الى الشاشة الرئيسية
+                Intent i = new Intent(SignInActivity.this, MainActivity.class);
+                startActivity(i);
+                finish();
 
+            }
         }
     }
 
