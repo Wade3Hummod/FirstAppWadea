@@ -60,7 +60,12 @@ public class SignInActivity extends AppCompatActivity
         if(isAllok)
         {
             Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
-            AppDataBase db=AppDataBase.getDB()
+            //بناء قاعدة بيانات وارجاع مؤشر عليها1
+            AppDataBase db=AppDataBase.getDB(getApplicationContext());
+            //مؤشر لكائن عمليات الجدول2
+            MyUserQuery userQuery=db.getMyUserQuery;
+            // 3.استدعاء العملية التي تنفذ الاستعلام الذي يفحص البريد وكلمة السر ويعيد كائنا ان كان موجود او ان لم يكن موجود null
+            MyUser myUser=userQuery
 
         }
     }
