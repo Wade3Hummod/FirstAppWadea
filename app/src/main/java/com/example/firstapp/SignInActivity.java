@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.firstapp.data.AppDatabase;
+import com.example.firstapp.data.usersTable.MyUser;
+import com.example.firstapp.data.usersTable.MyUserQuery;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SignInActivity extends AppCompatActivity
@@ -57,9 +60,9 @@ public class SignInActivity extends AppCompatActivity
         if (isAllok) {
             Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
             //بناء قاعدة بيانات وارجاع مؤشر عليها1
-            AppDataBase db = AppDataBase.getDB(getApplicationContext());
+            AppDatabase db = AppDatabase.getDB(getApplicationContext());
             //مؤشر لكائن عمليات الجدول2
-            MyUserQuery userQuery = db.getMyUserQuery;
+            MyUserQuery userQuery = db.getMyUserQuery();
             // 3.استدعاء العملية التي تنفذ الاستعلام الذي يفحص البريد وكلمة السر ويعيد كائنا ان كان موجود او ان لم يكن موجود null
             MyUser myUser = userQuery.checkEmailPassw(email, password);
             if (myUser == null)//هل يوجد كائن حسب الايميل والباسورد
