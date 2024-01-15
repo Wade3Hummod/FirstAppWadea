@@ -27,16 +27,16 @@ public class  SignUpActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        btnSave=findViewById(R.id.btnSave);
-        btnCancel=findViewById(R.id.btnCancel);
-        etName=findViewById(R.id.etName);
-        etPhone=findViewById(R.id.etPhone);
-        etEmail=findViewById(R.id.etEmail);
-        etPassword=findViewById(R.id.etPassword);
-        etRe_password=findViewById(R.id.etRe_password);
-        btnSave.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
+        btnSave = findViewById(R.id.btnSave);
+        btnCancel = findViewById(R.id.btnCancel);
+        etName = findViewById(R.id.etName);
+        etPhone = findViewById(R.id.etPhone);
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        etRe_password = findViewById(R.id.etRe_password);
+    }
+
+    @Override
             public void onClickSave(View view) {checkSignUpSave();}
 
             private void checkSignUpSave() {
@@ -105,16 +105,16 @@ public class  SignUpActivity extends AppCompatActivity
                     }
                 }
             }
+    public void onclickCancel(View v){
 
-
-        });
-
-
-    }
-    public void onclickCancel(View v)
-    {
         finish();
 
     }
 
-}
+
+        }
+
+
+
+
+
