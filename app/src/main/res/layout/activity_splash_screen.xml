@@ -9,13 +9,16 @@
 
     <TextView
         android:id="@+id/etWelcome"
-        android:layout_width="224dp"
-        android:layout_height="106dp"
+        android:layout_width="403dp"
+        android:layout_height="141dp"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         android:text="Welcome To My App"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="34sp"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="99dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="5dp" />
 
     <ImageView
         android:id="@+id/imageView"
