@@ -5,12 +5,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.firstapp.data.AppDatabase;
 import com.example.firstapp.data.usersTable.MyUser;
 import com.example.firstapp.data.usersTable.MyUserQuery;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class  SignUpActivity extends AppCompatActivity
 {
@@ -81,7 +86,22 @@ public class  SignUpActivity extends AppCompatActivity
         if(isAllok)
         {
             //
-            FireBaseAuth auth=fireBaseAuth.getInstance();
+            FirebaseAuth auth=FirebaseAuth.getInstance();
+            auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(SignUpActivity.this, "Signing up Succeeded", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Signing up Failed", Toast.LENGTH_SHORT).show();
+                        etEmail.setError(task.getException().getMessage());
+                    }
+
+                }
+
+
+            })
 
         }
     }
