@@ -36,8 +36,55 @@ public class  SignUpActivity extends AppCompatActivity
         etRe_password = findViewById(R.id.etRe_password);
     }
 
-    @Override
             public void onClickSave(View view) {checkSignUpSave();}
+    private void checkSignUpSave_FB() {
+        boolean isAllok = true; //يفحص الحقول ان كانت سليمة
+        //استخراج النص من حقل الايميل
+        String email = etEmail.getText().toString();
+        //استخراج نص كلمه المرور
+        String password = etPassword.getText().toString();
+        //استخراج نص اعادة كلمه المرور
+        String repassword = etRe_password.getText().toString();
+        // استخراج نص من رقم هاتف
+        String phone = etPhone.getText().toString();
+        //استخراج نص لأسمك
+        String name = etName.getText().toString();
+
+        //فحص الايمل ان كان طوله اقل من 6 او لا يحوي @ فهو خطأ
+        if (email.length() < 6 || email.contains("@") == false) {
+            //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
+            isAllok = false;
+            // عرض ملاحظه خطا على الشاشه داخل حقل البريد
+            etEmail.setError("Wrong Email");
+
+        }
+        if (password.length() < 8 || password.length() > 20 || password.contains(" ") == true)
+        {
+            isAllok = false;
+            etPassword.setError("Password between 8 - 20 letters");
+        }
+        if (!repassword.equals(password))
+        {
+            isAllok = false;
+            etRe_password.setError("should be the same password");
+        }
+
+
+        if (phone.length() <10 || phone.contains(" ") == true)
+        {
+            isAllok = false;
+            etPhone.setError("phone number is not 10  numbers");
+
+        }
+
+
+        if(isAllok)
+        {
+            //
+            FireBaseAuth auth=fireBaseAuth.getInstance();
+
+        }
+    }
 
             private void checkSignUpSave() {
                 boolean isAllok = true; //يفحص الحقول ان كانت سليمة
