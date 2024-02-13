@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "19931491573",
+    "project_id": "wade2023-4133c",
+    "storage_bucket": "wade2023-4133c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19931491573:android:cb1970748892f3af04a9bc",
+        "android_client_info": {
+          "package_name": "com.example.firstapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1u9xaw-q8YEh2yp5SwRWOk7Y868F25Tw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19931491573:android:a9f671a86e264e1e04a9bc",
+        "android_client_info": {
+          "package_name": "com.example.wade2023"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1u9xaw-q8YEh2yp5SwRWOk7Y868F25Tw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
