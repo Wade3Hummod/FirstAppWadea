@@ -71,15 +71,16 @@ public class  SignUpActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task)
             {
                 //هل تم تنفيذ المطلوب بنجاح
-                if (task.isSuccessful())
-                {
-                 Toast.makeText(SignUpActivity.this,"Succeed to add User")
+                if (task.isSuccessful()) {
+                    Toast.makeText(SignUpActivity.this, "Succeed to add User", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
-
-
+                else
+                {
+                    Toast.makeText(SignUpActivity.this,"Failed to add User",Toast.LENGTH_SHORT).show();
+                }
             }
-        })
-
+        });
     }
 
     private void checkSignUpSave_FB()
@@ -129,7 +130,7 @@ public class  SignUpActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(SignUpActivity.this, "Signing up Succeeded", Toast.LENGTH_SHORT).show();
-
+                        saveUser_FB(email,name,phone,password);
                         finish();
                     } else {
                         Toast.makeText(SignUpActivity.this, "Signing up Failed", Toast.LENGTH_SHORT).show();
