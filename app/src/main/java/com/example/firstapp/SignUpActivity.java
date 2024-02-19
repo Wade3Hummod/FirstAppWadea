@@ -13,10 +13,12 @@ import com.example.firstapp.data.usersTable.MyUser;
 import com.example.firstapp.data.usersTable.MyUserQuery;
 //import com.google.android.gms.tasks.OnCompleteListener;
 //import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 //import com.google.firebase.auth.AuthResult;
 //import com.google.firebase.auth.FirebaseAuth;
 
@@ -43,11 +45,45 @@ public class  SignUpActivity extends AppCompatActivity {
         etRe_password = findViewById(R.id.etRe_password);
     }
 
-    public void onClickSave(View view) {
+    public void onClickSave(View view)
+    {
         checkSignUpSave_FB();
     }
+    private void saveUser_FB(String email,String name,String phone, String passw)
+    {
+        //مؤشر لقاعدة البيانات
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل"دوكيومنت"
+        String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //بناء الكائن الذي سيتم حفظه
+        MyUser user=new MyUser();
+        user.setEmail(email);
+        user.setFullName(name);
+        user.setPhone(phone);
+        user.setPassw(passw);
+        user.setId(uid);
+        //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص نجاح المطلوب
+        // معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
+        db.collection("MyUsers").document(uid).set(user).addOnCompleteListener(new OnCompleteListener<Void>()
+        {
+            //دالة معالج الحدث
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                //هل تم تنفيذ المطلوب بنجاح
+                if (task.isSuccessful())
+                {
+                 Toast.makeText(SignUpActivity.this,"Succeed to add User")
+                }
 
-    private void checkSignUpSave_FB() {
+
+            }
+        })
+
+    }
+
+    private void checkSignUpSave_FB()
+    {
         boolean isAllok = true; //يفحص الحقول ان كانت سليمة
         //استخراج النص من حقل الايميل
         String email = etEmail.getText().toString();
