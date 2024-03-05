@@ -17,8 +17,8 @@ public class SignInActivity extends AppCompatActivity
 {
 
 
-    private TextInputEditText etEmail;
-    private TextInputEditText etPassword;
+    private TextInputEditText etEmail;//الايميل الشخصي
+    private TextInputEditText etPassword;//الرقم السري
     private Button btnSignIn1;
     private Button btnSingUp2;
 

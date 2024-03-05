@@ -2,9 +2,9 @@ package com.example.firstapp.data.parksTable;
 
 public class Park
 {
-public String Street;
-public String City;
-public int Number;
+public String Street;//رقم الشارع
+public String City;// اسم المدينة
+public int Number;//عدد المواقف
 
     public Park(String street, String city, int number) {
         Street = street;

@@ -25,11 +25,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class  SignUpActivity extends AppCompatActivity {
     private Button btnSave;
     private Button btnCancel;
-    private TextInputEditText etName;
-    private TextInputEditText etPhone;
-    private TextInputEditText etEmail;
-    private TextInputEditText etPassword;
-    private TextInputEditText etRe_password;
+    private TextInputEditText etName;//الاسم الشخصي
+    private TextInputEditText etPhone;//رقم الهاتف الشخصي
+    private TextInputEditText etEmail;//الايميل الشخصي
+    private TextInputEditText etPassword;//الرقم السري
+    private TextInputEditText etRe_password;//تاكيد الرقم السري
 
 
     @Override
