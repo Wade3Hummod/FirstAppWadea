@@ -19,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AddPark extends AppCompatActivity
 {
-    private TextInputEditText etSteet;
+    private TextInputEditText etStreet;
     private TextInputEditText etCity;
     private TextInputEditText etNumber;
     private Button btnSave;
@@ -31,7 +31,7 @@ public class AddPark extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_park);
-        etSteet = findViewById(R.id.etSteet);
+        etStreet = findViewById(R.id.etSteet);
         etCity = findViewById(R.id.etCity);
         etNumber = findViewById(R.id.etNumber);
         btnSave = findViewById(R.id.btnSave);
@@ -59,7 +59,7 @@ public class AddPark extends AppCompatActivity
 
         //اضافة كائن "لمجموعة"المستعملين ومعالج حدث لفحص نجاح المطلوب
         //معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
-        db.collection("MyParks").document(uid).set(park).addOnCompleteListener(new OnCompleteListener<Void>()
+        db.collection("MyParks").document(parkId).set(park).addOnCompleteListener(new OnCompleteListener<Void>()
         {
             //دالة معالج الحدث
             @Override
@@ -79,6 +79,16 @@ public class AddPark extends AppCompatActivity
         });
 
 
+
+
+    }
+    private void checkAddPark()
+    {
+        boolean isAllok = true; //يفحص الحقول ان كانت سليمة
+        String street= etStreet.getText().toString();
+        String city= etCity.getText().toString();
+        String number= etNumber.getText().toString();
+        String location= tvgpslocatoin.getText().toString();
 
 
     }
