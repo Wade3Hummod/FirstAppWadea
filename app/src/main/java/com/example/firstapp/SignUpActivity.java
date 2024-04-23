@@ -1,5 +1,6 @@
 package com.example.firstapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,6 +49,7 @@ public class  SignUpActivity extends AppCompatActivity {
     public void onClickSave(View view)
     {
         checkSignUpSave_FB();
+
     }
     private void saveUser_FB(String email,String name,String phone, String passw)
     {
@@ -73,7 +75,8 @@ public class  SignUpActivity extends AppCompatActivity {
                 //هل تم تنفيذ المطلوب بنجاح
                 if (task.isSuccessful()) {
                     Toast.makeText(SignUpActivity.this, "Succeed to add User", Toast.LENGTH_SHORT).show();
-                    finish();
+                    Intent i = new Intent(SignUpActivity.this,SignInActivity.class);
+                    startActivity(i);
                 }
                 else
                 {
@@ -130,8 +133,9 @@ public class  SignUpActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(SignUpActivity.this, "Signing up Succeeded", Toast.LENGTH_SHORT).show();
-                        saveUser_FB(email,name,phone,password);
-                        finish();
+                        Intent i = new Intent(SignUpActivity.this,SignInActivity.class);
+                        startActivity(i);
+
                     } else {
                         Toast.makeText(SignUpActivity.this, "Signing up Failed", Toast.LENGTH_SHORT).show();
                         etEmail.setError(task.getException().getMessage());
