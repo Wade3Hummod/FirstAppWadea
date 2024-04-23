@@ -98,7 +98,7 @@ public class SignInActivity extends AppCompatActivity {
             if (isAllok) {
 
                 FirebaseAuth auth = FirebaseAuth.getInstance();
-                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {

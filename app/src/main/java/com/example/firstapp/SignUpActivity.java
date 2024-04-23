@@ -133,8 +133,7 @@ public class  SignUpActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(SignUpActivity.this, "Signing up Succeeded", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(SignUpActivity.this,SignInActivity.class);
-                        startActivity(i);
+                        saveUser_FB(email,name,phone,password);
 
                     } else {
                         Toast.makeText(SignUpActivity.this, "Signing up Failed", Toast.LENGTH_SHORT).show();
