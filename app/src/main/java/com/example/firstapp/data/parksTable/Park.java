@@ -2,9 +2,9 @@ package com.example.firstapp.data.parksTable;
 
 public class Park
 {
-public String Street;//رقم الشارع
-public String City;// اسم المدينة
-public int Number;//عدد المواقف
+public String street;//رقم الشارع
+public String city;// اسم المدينة
+public int number;//عدد المواقف
     public double lat;//هذا خط العرض gps
     public double lng;//خط الطول
     public String userId;
@@ -18,27 +18,27 @@ public int Number;//عدد المواقف
     }
 
     public String getStreet() {
-        return Street;
+        return street;
     }
 
     public void setStreet(String street) {
-        Street = street;
+        this.street = street;
     }
 
     public String getCity() {
-        return City;
+        return city;
     }
 
     public void setCity(String city) {
-        City = city;
+        this.city = city;
     }
 
     public int getNumber() {
-        return Number;
+        return number;
     }
 
     public void setNumber(int number) {
-        Number = number;
+        this.number = number;
     }
 
     public double getLat() {
@@ -76,9 +76,9 @@ public int Number;//عدد المواقف
     @Override
     public String toString() {
         return "Park{" +
-                "Street='" + Street + '\'' +
-                ", City='" + City + '\'' +
-                ", Number=" + Number +
+                "Street='" + street + '\'' +
+                ", City='" + city + '\'' +
+                ", Number=" + number +
                 ", lat=" + lat +
                 ", lng=" + lng +
                 ", userId='" + userId + '\'' +

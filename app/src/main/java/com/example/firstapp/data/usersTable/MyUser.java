@@ -19,15 +19,15 @@ public class MyUser
     public String email;//الايميل الشخصي
     public String phone;//رقم الهاتف الشخصي
     public String passw;//الرقم السري
-    public String Id;//
+    public String id;//
 
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public long getKeyid() {

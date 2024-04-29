@@ -16,6 +16,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -64,8 +65,17 @@ public class AddPark extends AppCompatActivity
         tvgpslocatoin = findViewById(R.id.tvgpslocatoin);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+        btnSave=findViewById(R.id.btnSave);
+        //معالج حدث الظغط الزر
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) 
+            {
+              checkAddPark();
+            }
+        });
         // method to get the location
-        getLastLocation();
+       // getLastLocation();
 
 
     }
@@ -118,6 +128,32 @@ public class AddPark extends AppCompatActivity
         String city= etCity.getText().toString();
         String number= etNumber.getText().toString();
         String location= tvgpslocatoin.getText().toString();
+        if (street.length()<1)
+        {
+            isAllok=false;
+            etStreet.setError("must write street name");
+        }
+        if (city.length()<1)
+        {
+            isAllok=false;
+            etStreet.setError("must write city name");
+        }
+        if (number.length()<1)
+        {
+            isAllok=false;
+            etStreet.setError("must write number name");
+        }
+        if (location.length()<1)
+        {
+            isAllok=false;
+            etStreet.setError("must write location name");
+        }
+        if(isAllok)
+        {
+
+            savepark_FB("danon","danon",0,0,0);
+        }
+
 
 
     }
