@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SearchView;
 import android.content.Intent;
 import android.content.om.FabricatedOverlay;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,7 +23,15 @@ public class MainActivity extends AppCompatActivity {
         fabAddPark =findViewById(R.id.fabAddPark);
         srhV =findViewById(R.id.srhV);
         lstvParks =findViewById(R.id.lstvParks);
+        fabAddPark.setOnClickListener(new View.OnClickListener()
 
+        {
+            @Override
+            public void onClick (View view){
+                Intent i = new Intent(MainActivity.this, AddPark.class);
+                startActivity(i);
+            }
+        });
 
     }
 
