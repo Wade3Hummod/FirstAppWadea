@@ -32,7 +32,9 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         if (FirebaseAuth.getInstance().getCurrentUser()!=null)
         {
-
+            Intent i = new Intent(SignInActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
         }
         etPassword = findViewById(R.id.etPassword);
         etEmail = findViewById(R.id.etEmail);
@@ -111,6 +113,7 @@ public class SignInActivity extends AppCompatActivity {
                             Toast.makeText(SignInActivity.this, "Signing in", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(i);
+                            finish();
                         } else {
                             Toast.makeText(SignInActivity.this, "Signing in failed", Toast.LENGTH_SHORT).show();
                             etEmail.setError(task.getException().getMessage());

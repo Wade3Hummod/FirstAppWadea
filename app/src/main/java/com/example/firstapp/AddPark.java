@@ -51,6 +51,7 @@ public class AddPark extends AppCompatActivity
     // Initializing other items
     // from layout file
     int PERMISSION_ID = 44;
+    private Location location;
 
 
     @Override
@@ -64,7 +65,12 @@ public class AddPark extends AppCompatActivity
         ibtnGps = findViewById(R.id.ibtnGps);
         tvgpslocatoin = findViewById(R.id.tvgpslocatoin);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
+        ibtnGps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getLastLocation();
+            }
+        });
         btnSave=findViewById(R.id.btnSave);
         //معالج حدث الظغط الزر
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +133,6 @@ public class AddPark extends AppCompatActivity
         String street= etStreet.getText().toString();
         String city= etCity.getText().toString();
         String number= etNumber.getText().toString();
-        String location= tvgpslocatoin.getText().toString();
         if (street.length()<1)
         {
             isAllok=false;
@@ -143,15 +148,18 @@ public class AddPark extends AppCompatActivity
             isAllok=false;
             etStreet.setError("must write number name");
         }
-        if (location.length()<1)
+        if (location==null)
         {
             isAllok=false;
-            etStreet.setError("must write location name");
+            tvgpslocatoin.setError("set location");
+            tvgpslocatoin.setText("set location");
+
         }
         if(isAllok)
         {
+            //todo get loc from adress and get andress from loc
 
-            savepark_FB("danon","danon",0,0,0);
+            savepark_FB("danon","danon",0,location.getLatitude(),location.getLatitude());
         }
 
 
@@ -172,7 +180,7 @@ public class AddPark extends AppCompatActivity
                 mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                     @Override
                     public void onComplete(@NonNull Task<Location> task) {
-                        Location location = task.getResult();
+                         location = task.getResult();
                         if (location == null) {
                             requestNewLocationData();
                         } else {
@@ -259,8 +267,8 @@ public class AddPark extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-        if (checkPermissions()) {
-            getLastLocation();
-        }
+//        if (checkPermissions()) {
+//            getLastLocation();
+//        }
     }
 }

@@ -42,8 +42,8 @@ public class MyParkAdapter extends ArrayAdapter<Park> {
         TextView tvLocation=vitem.findViewById(R.id.tvImLocation);
         TextView tvUserId=vitem.findViewById(R.id.tvItmUserId);
         TextView tvParkId=vitem.findViewById(R.id.tvItmParkId);
-        ImageButton BtnEdit=vitem.findViewById(R.id.imgBtnEdititm);
-        ImageButton BtnDelete=vitem.findViewById(R.id.imgBtnDeleteitm);
+        ImageView BtnEdit=vitem.findViewById(R.id.imgBtnEdititm);
+        ImageView BtnDelete=vitem.findViewById(R.id.imgBtnDeleteitm);
         //קבלת הנתון (עצם) הנוכחי
         Park current=getItem(position);
         //הצגת הנתונים על שדות הרכיב הגרפי
