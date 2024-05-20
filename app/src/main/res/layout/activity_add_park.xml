@@ -69,6 +69,12 @@
                 android:layout_height="wrap_content"
                 android:text="TextView" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imgBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:srcCompat="@tools:sample/avatars" />
     </LinearLayout>
 
 </RelativeLayout>
