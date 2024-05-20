@@ -60,8 +60,6 @@ public class AddPark extends AppCompatActivity
 //upload: 2 add next fileds
     private final int IMAGE_PICK_CODE=100;// קוד מזהה לבקשת בחירת תמונה
     private final int IMAGE_PERMISSION_CODE =101;//קוד מזהה לבחירת הרשאת גישה לקבצים
-    private ImageButton imgBtnl;//כפתור/ לחצן לבחירת תמונה והצגתה
-    private Button btnUpload;// לחצן לביצוע העלאת התמונה
     private Uri toUploadimageUri;// כתוב הקובץ(תמונה) שרוצים להעלות
     private Uri downladuri;//כתובת הקוץ בענן אחרי ההעלאה
 
@@ -97,8 +95,8 @@ public class AddPark extends AppCompatActivity
         });
         btnSave=findViewById(R.id.btnSave);
         //upload: 3
-        imgBtn=findViewById(R.id.imgBtn);
-        imgBtnl.setOnClickListener(new View.OnClickListener() {
+        imgBtn=findViewById(R.id.imgView);
+        imgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
@@ -174,7 +172,7 @@ public class AddPark extends AppCompatActivity
         if (resultCode==RESULT_OK && requestCode== IMAGE_PICK_CODE){
             //a עידכון תכונת כתובת התמונה
             toUploadimageUri = data.getData();//קבלת כתובת התמונה הנתונים שניבחרו
-            imgBtnl.setImageURI(toUploadimageUri);// הצגת התמונה שנבחרה על רכיב התמונה
+            imgBtn.setImageURI(toUploadimageUri);// הצגת התמונה שנבחרה על רכיב התמונה
         }
     }
 //upload: 6
