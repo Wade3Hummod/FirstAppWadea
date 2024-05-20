@@ -9,8 +9,7 @@ public int number;//عدد المواقف
     public double lng;//خط الطول
     public String userId;
     public String parkId;
-
-
+    private String image;
 
 
     public Park() {
@@ -84,5 +83,13 @@ public int number;//عدد المواقف
                 ", userId='" + userId + '\'' +
                 ", parkId='" + parkId + '\'' +
                 '}';
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

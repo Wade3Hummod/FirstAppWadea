@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -37,6 +38,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.UUID;
+
 // https://www.geeksforgeeks.org/how-to-get-user-location-in-android/?ref=header_search
 public class AddPark extends AppCompatActivity
 {
@@ -50,13 +59,13 @@ public class AddPark extends AppCompatActivity
     //upload: 1 add Xml image view or button and upload button
 //upload: 2 add next fileds
     private final int IMAGE_PICK_CODE=100;// קוד מזהה לבקשת בחירת תמונה
-    private final int PERMISSION_CODE=101;//קוד מזהה לבחירת הרשאת גישה לקבצים
+    private final int IMAGE_PERMISSION_CODE =101;//קוד מזהה לבחירת הרשאת גישה לקבצים
     private ImageButton imgBtnl;//כפתור/ לחצן לבחירת תמונה והצגתה
     private Button btnUpload;// לחצן לביצוע העלאת התמונה
     private Uri toUploadimageUri;// כתוב הקובץ(תמונה) שרוצים להעלות
     private Uri downladuri;//כתובת הקוץ בענן אחרי ההעלאה
 
-    private Park park;//עצם/נתון שרוצים לשמור
+    private Park park =new Park();//עצם/נתון שרוצים לשמור
     private MyUser user;//עצם/נתון שרוצים לשמור
     // initializing
     // FusedLocationProviderClient
@@ -65,7 +74,7 @@ public class AddPark extends AppCompatActivity
 
     // Initializing other items
     // from layout file
-    int PERMISSION_ID = 44;
+    int LOCATION_PERMISSION_ID = 44;
     private Location location;
 
 
@@ -91,10 +100,11 @@ public class AddPark extends AppCompatActivity
         imgBtn=findViewById(R.id.imgBtn);
         imgBtnl.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-
-            }
+            public void onClick(View view)
+            {
+                //upload: 8
+                check_IMAGE_Permission();
+    }
         });
 
         //معالج حدث الظغط الزر
@@ -110,20 +120,12 @@ public class AddPark extends AppCompatActivity
 
 
     }
-    public void savepark_FB(String street, String City, int number, double lat, double lng )
+
+    public void savepark_FB( )
     {
         //قاعدة البيانات
         FirebaseFirestore db=FirebaseFirestore.getInstance();
-        //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل"دوكيومينت
-        String uid= FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //بناء الكائن الذي سيتم حفظه
-        Park park=new Park();
-        park.setStreet(street);
-        park.setCity(City);
-        park.setNumber(number);
-        park.setLat(lat);
-        park.setLng(lng);
-        park.setUserId(uid);
+
         String parkId = db.collection("MyParks").document().getId();
         park.setParkId(parkId);
 
@@ -179,7 +181,7 @@ public class AddPark extends AppCompatActivity
     /**
      * בדיקה האם יש הרשאה לגישה לקבצים בטלפון
      */
-    private void checkPermission()
+    private void check_IMAGE_Permission()
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//בדיקת גרסאות
             //בדיקה אם ההשאה לא אושרה בעבר
@@ -188,7 +190,7 @@ public class AddPark extends AppCompatActivity
                 String[] permissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
                 //בקשת אישור ההשאות (שולחים קוד הבקשה)
                 //התשובה תתקבל בפעולה onRequestPermissionsResult
-                requestPermissions(permissions, PERMISSION_CODE);
+                requestPermissions(permissions, IMAGE_PERMISSION_CODE);
             } else {
                 //permission already granted אם יש הרשאה מקודם אז מפעילים בחירת תמונה מהטלפון
                 pickImageFromGallery();
@@ -234,8 +236,17 @@ public class AddPark extends AppCompatActivity
         if(isAllok)
         {
             //todo get loc from adress and get andress from loc
+            //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل"دوكيومينت
+            String uid= FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            savepark_FB("danon","danon",0,location.getLatitude(),location.getLatitude());
+            park.setStreet(street);
+            park.setCity(city);
+            park.setNumber(Integer.parseInt(number));
+            park.setLat(location.getLatitude());
+            park.setLng(location.getLongitude());
+            park.setUserId(uid);
+            uploadImage(toUploadimageUri);
+
         }
 
 
@@ -317,7 +328,7 @@ public class AddPark extends AppCompatActivity
     private void requestPermissions() {
         ActivityCompat.requestPermissions(this, new String[]{
                 ACCESS_COARSE_LOCATION,
-                ACCESS_FINE_LOCATION}, PERMISSION_ID);
+                ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_ID);
     }
 
     // method to check
@@ -340,12 +351,68 @@ public class AddPark extends AppCompatActivity
     onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == PERMISSION_ID) {
+        if (requestCode == LOCATION_PERMISSION_ID) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLastLocation();
             }
         }
+        if (requestCode == IMAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                pickImageFromGallery();
+            }
+        }
     }
+
+    private void uploadImage(Uri filePath) {
+        if (filePath != null) {
+            //יצירת דיאלוג התקדמות
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();//הצגת הדיאלוג
+            //קבלת כתובת האחסון בענן
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageReference = storage.getReference();
+            //יצירת תיקיה ושם גלובלי לקובץ
+            final StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+            // יצירת ״תהליך מקביל״ להעלאת תמונה
+            ref.putFile(filePath)
+                    //הוספת מאזין למצב ההעלאה
+                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                progressDialog.dismiss();// הסתרת הדיאלוג
+                                //קבלת כתובת הקובץ שהועלה
+                                ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        downladuri = task.getResult();
+                                        Toast.makeText(getApplicationContext(), "Uploaded", Toast.LENGTH_SHORT).show();
+                                        park.setImage(downladuri.toString());//עדכון כתובת התמונה שהועלתה
+                                        savepark_FB();
+                                    }
+                                });
+                            } else {
+                                progressDialog.dismiss();//הסתרת הדיאלוג
+                                Toast.makeText(getApplicationContext(), "Failed " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    })
+                    //הוספת מאזין שמציג מהו אחוז ההעלאה
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            //חישוב מה הגודל שהועלה
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred()/ taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                        }
+                    });
+        } else {
+            savepark_FB();
+        }
+    }
+
 
     @Override
     public void onResume() {
