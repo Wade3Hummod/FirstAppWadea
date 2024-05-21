@@ -251,6 +251,7 @@ public class AddPark extends AppCompatActivity
             park.setLat(location.getLatitude());
             park.setLng(location.getLongitude());
             park.setUserId(uid);
+            park.setPhone(phone);
             uploadImage(toUploadimageUri);
 
         }

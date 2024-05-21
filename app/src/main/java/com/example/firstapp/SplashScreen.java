@@ -18,7 +18,6 @@ public class SplashScreen extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        etWelcome=findViewById(R.id.etWelcome);
 
 //        Log.d(" ", "OnCreate:");
 //        Toast.makeText(this, "OnCreate:", Toast.LENGTH_SHORT).show();

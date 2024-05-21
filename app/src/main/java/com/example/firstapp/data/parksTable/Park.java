@@ -10,6 +10,7 @@ public int number;//عدد المواقف
     public String userId;
     public String parkId;
     private String image;
+    private String phone;
 
 
     public Park() {
@@ -38,6 +39,14 @@ public int number;//عدد المواقف
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     public double getLat() {
@@ -72,6 +81,7 @@ public int number;//عدد المواقف
         this.parkId = parkId;
     }
 
+
     @Override
     public String toString() {
         return "Park{" +
@@ -82,6 +92,7 @@ public int number;//عدد المواقف
                 ", lng=" + lng +
                 ", userId='" + userId + '\'' +
                 ", parkId='" + parkId + '\'' +
+                ", phone=" + phone+'\''+
                 '}';
     }
 

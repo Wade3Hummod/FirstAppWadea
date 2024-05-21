@@ -54,7 +54,7 @@ public class MyParkAdapter extends ArrayAdapter<Park> {
         TextView tvLocation = vitem.findViewById(R.id.tvImLocation);
         TextView tvUserId = vitem.findViewById(R.id.tvItmUserId);
         TextView tvParkId = vitem.findViewById(R.id.tvItmParkId);
-        ImageView BtnEdit = vitem.findViewById(R.id.imgbtnCall);
+        ImageView BtnCall = vitem.findViewById(R.id.imgbtnCall);
         ImageView BtnDelete = vitem.findViewById(R.id.imgBtnDeleteitm);
         //קבלת הנתון (עצם) הנוכחי
         Park current = getItem(position);
@@ -67,7 +67,10 @@ public class MyParkAdapter extends ArrayAdapter<Park> {
         tvParkId.setText(current.getParkId());
 
 
+
         downloadImageUsingPicasso(current.getImage(), imageView1);
+
+        callAPhoneNymber(current.getPhone());
 
 
         return vitem;
