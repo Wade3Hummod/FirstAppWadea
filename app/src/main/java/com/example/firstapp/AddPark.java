@@ -52,6 +52,7 @@ public class AddPark extends AppCompatActivity
     private TextInputEditText etStreet;
     private TextInputEditText etCity;
     private TextInputEditText etNumber;
+    private TextInputEditText etPhone;
     private Button btnSave;
     private ImageButton ibtnGps;
     private TextView tvgpslocatoin;
@@ -83,6 +84,7 @@ public class AddPark extends AppCompatActivity
         etStreet = findViewById(R.id.etSteet);
         etCity = findViewById(R.id.etCity);
         etNumber = findViewById(R.id.etNumber);
+        etPhone = findViewById(R.id.etPhone);
         btnSave = findViewById(R.id.btnSave);
         ibtnGps = findViewById(R.id.ibtnGps);
         tvgpslocatoin = findViewById(R.id.tvgpslocatoin);
@@ -209,6 +211,7 @@ public class AddPark extends AppCompatActivity
         String street= etStreet.getText().toString();
         String city= etCity.getText().toString();
         String number= etNumber.getText().toString();
+        String phone= etPhone.getText().toString();
         if (street.length()<1)
         {
             isAllok=false;
@@ -230,6 +233,11 @@ public class AddPark extends AppCompatActivity
             tvgpslocatoin.setError("set location");
             tvgpslocatoin.setText("set location");
 
+        }
+        if (phone.length()!=10)
+        {
+            isAllok=false;
+            etPhone.setError("must write number phone");
         }
         if(isAllok)
         {
