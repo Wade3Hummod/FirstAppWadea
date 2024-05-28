@@ -82,6 +82,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:srcCompat="@android:drawable/btn_dialog" />
+
+                <ImageView
+                    android:id="@+id/imgwaze"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@mipmap/ic_waze" />
+
+                <ImageView
+                    android:id="@+id/imgmaps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:srcCompat="@mipmap/ic_maps" />
             </LinearLayout>
 
         </LinearLayout>

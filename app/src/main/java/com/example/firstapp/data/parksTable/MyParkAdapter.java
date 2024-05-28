@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -56,6 +57,10 @@ public class MyParkAdapter extends ArrayAdapter<Park> {
         TextView tvParkId = vitem.findViewById(R.id.tvItmParkId);
         ImageView BtnCall = vitem.findViewById(R.id.imgbtnCall);
         ImageView BtnDelete = vitem.findViewById(R.id.imgBtnDeleteitm);
+        ImageView waze = vitem.findViewById(R.id.imgwaze);
+        ImageView maps = vitem.findViewById(R.id.imgmaps);
+
+
         //קבלת הנתון (עצם) הנוכחי
         Park current = getItem(position);
         //הצגת הנתונים על שדות הרכיב הגרפי
@@ -68,9 +73,35 @@ public class MyParkAdapter extends ArrayAdapter<Park> {
 
 
 
+
         downloadImageUsingPicasso(current.getImage(), imageView1);
 
-        callAPhoneNymber(current.getPhone());
+        BtnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callAPhoneNymber(current.getPhone());
+            }
+        });
+        BtnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+        waze.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openWaze(current);
+            }
+        });
+        maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openMaps(current);
+            }
+        });
+
 
 
         return vitem;
@@ -114,4 +145,28 @@ public class MyParkAdapter extends ArrayAdapter<Park> {
             }
         }
     }
+
+    public void openWaze(Park p)
+    {
+        // Open Waze
+        Intent wazeIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://waze.com/ul?ll=" + p.getLat() + "," + p.getLng() + "&navigate=yes"));
+        wazeIntent.setPackage("com.waze");
+        if (wazeIntent.resolveActivity(getContext().getPackageManager()) != null) {
+            getContext().startActivity(wazeIntent);
+        } else {
+            Toast.makeText(getContext(), "Please install Waze", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void openMaps(Park p)
+    {
+        // Open Google Maps if Waze is not installed
+        Intent mapsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + p.getLat() + "," + p.getLng() + "?q=" + p.getLat() + "," + p.getLng() + "(Label+Name)"));
+        mapsIntent.setPackage("com.google.android.apps.maps");
+        if (mapsIntent.resolveActivity(getContext().getPackageManager()) != null) {
+            getContext().startActivity(mapsIntent);
+        } else {
+            Toast.makeText(getContext(), "Please install Google Maps", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }
