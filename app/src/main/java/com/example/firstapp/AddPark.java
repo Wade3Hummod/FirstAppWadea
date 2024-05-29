@@ -36,6 +36,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -60,6 +61,7 @@ public class AddPark extends AppCompatActivity
     private TextInputEditText etNumber;
     private TextInputEditText etPhone;
     private Button btnSave;
+    private Button btnFromAdress;
     private ImageButton ibtnGps;
     private TextView tvgpslocatoin;
     private ImageView imgBtn;
@@ -92,6 +94,7 @@ public class AddPark extends AppCompatActivity
         etNumber = findViewById(R.id.etNumber);
         etPhone = findViewById(R.id.etPhone);
         btnSave = findViewById(R.id.btnSave);
+        btnFromAdress = findViewById(R.id.btnFromAdress);
         ibtnGps = findViewById(R.id.ibtnGps);
         tvgpslocatoin = findViewById(R.id.tvgpslocatoin);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -119,6 +122,13 @@ public class AddPark extends AppCompatActivity
             public void onClick(View view) 
             {
               checkAddPark();
+            }
+        });
+        btnFromAdress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getLocationFromAddress();
             }
         });
         // method to get the location
@@ -439,24 +449,55 @@ public class AddPark extends AppCompatActivity
 
     /**
      *دالة تتلقى عنوان وتعيد الموقع الدقيق
-     * @param context
-     * @param strAddress
+
      */
     // Method to get location (latitude and longitude) from an address
-    private void getLocationFromAddress(Context context, String strAddress) {
-        Geocoder coder = new Geocoder(context, Locale.getDefault());
-        try {
-            List<Address> addressList = coder.getFromLocationName(strAddress, 5);
-            if (addressList != null && addressList.size() > 0) {
-                Address location = addressList.get(0);
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                Log.d("Location", "Latitude: " + latitude + ", Longitude: " + longitude);
-            } else {
-                Log.e("Location", "Unable to find location for address: " + strAddress);
+    private void getLocationFromAddress() {
+        Geocoder coder = new Geocoder(AddPark.this, Locale.getDefault());
+        Boolean isAllok=true;
+        String street= etStreet.getText().toString();
+        String city= etCity.getText().toString();
+        String number= etNumber.getText().toString();
+        String phone= etPhone.getText().toString();
+        if (street.length()<1)
+        {
+            isAllok=false;
+            etStreet.setError("must write street name");
+        }
+        if (city.length()<1)
+        {
+            isAllok=false;
+            etStreet.setError("must write city name");
+        }
+        if (number.length()<1)
+        {
+            isAllok=false;
+            etStreet.setError("must write number name");
+        }
+
+
+        if(isAllok) {
+
+
+            try {
+                String strAddress=city+","+street+","+number;
+                List<Address> addressList = coder.getFromLocationName(strAddress, 5);
+                if (addressList != null && addressList.size() > 0) {
+                    Address loc = addressList.get(0);
+                    double latitude = loc.getLatitude();
+                    double longitude = loc.getLongitude();
+                     location = new Location("dummyProvider");
+                    location.setLatitude(latitude);
+                    location.setLongitude(longitude);
+                    tvgpslocatoin.setText("Latitude: " + location.getLatitude() + "Longitude: " + location.getLongitude() + "");
+
+                    Log.d("Location", "Latitude: " + latitude + ", Longitude: " + longitude);
+                } else {
+                    Log.e("Location", "Unable to find location for address: " + strAddress);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
