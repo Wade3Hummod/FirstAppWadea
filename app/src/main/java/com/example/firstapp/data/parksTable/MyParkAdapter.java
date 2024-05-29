@@ -52,7 +52,6 @@ public class MyParkAdapter extends ArrayAdapter<Park> {
         TextView tvStreet = vitem.findViewById(R.id.tvItmStreet);
         TextView tvCity = vitem.findViewById(R.id.tvItmCity);
         TextView tvNumber = vitem.findViewById(R.id.tvItmNumber);
-        TextView tvLocation = vitem.findViewById(R.id.tvImLocation);
         TextView tvUserId = vitem.findViewById(R.id.tvItmUserId);
         TextView tvParkId = vitem.findViewById(R.id.tvItmParkId);
         ImageView BtnCall = vitem.findViewById(R.id.imgbtnCall);
@@ -67,7 +66,6 @@ public class MyParkAdapter extends ArrayAdapter<Park> {
         tvStreet.setText(current.getStreet());
         tvCity.setText(current.getCity());
         tvNumber.setText("Number:" + current.getNumber());
-        tvLocation.setText("loc lat:" + current.getLat() + " loc lng:" + current.getLng());
         tvUserId.setText(current.getUserId());
         tvParkId.setText(current.getParkId());
 

@@ -12,6 +12,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -19,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -44,6 +47,9 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 // https://www.geeksforgeeks.org/how-to-get-user-location-in-android/?ref=header_search
@@ -279,6 +285,7 @@ public class AddPark extends AppCompatActivity
                             requestNewLocationData();
                         } else {
                             tvgpslocatoin.setText("Latitude: " + location.getLatitude() + "Longitude: " + location.getLongitude() + "");
+                            getAddressFromLocation(AddPark.this, location.getLatitude(),location.getLongitude());
 
                         }
                     }
@@ -318,6 +325,7 @@ public class AddPark extends AppCompatActivity
         public void onLocationResult(LocationResult locationResult) {
             Location mLastLocation = locationResult.getLastLocation();
             tvgpslocatoin.setText("Latitude: " + mLastLocation.getLatitude() + "Longitude: " + mLastLocation.getLongitude() + "");
+            getAddressFromLocation(AddPark.this, mLastLocation.getLatitude(),mLastLocation.getLongitude());
         }
     };
 
@@ -427,5 +435,53 @@ public class AddPark extends AppCompatActivity
 //        if (checkPermissions()) {
 //            getLastLocation();
 //        }
+    }
+
+    /**
+     *دالة تتلقى عنوان وتعيد الموقع الدقيق
+     * @param context
+     * @param strAddress
+     */
+    // Method to get location (latitude and longitude) from an address
+    private void getLocationFromAddress(Context context, String strAddress) {
+        Geocoder coder = new Geocoder(context, Locale.getDefault());
+        try {
+            List<Address> addressList = coder.getFromLocationName(strAddress, 5);
+            if (addressList != null && addressList.size() > 0) {
+                Address location = addressList.get(0);
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                Log.d("Location", "Latitude: " + latitude + ", Longitude: " + longitude);
+            } else {
+                Log.e("Location", "Unable to find location for address: " + strAddress);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *دالة تتلقى الموقع وتعيد العنوان
+     * @param context
+     * @param latitude
+     * @param longitude
+     */
+    // Method to get address from a location (latitude and longitude)
+    private void getAddressFromLocation(Context context, double latitude, double longitude) {
+        Geocoder coder = new Geocoder(context, Locale.getDefault());
+        try {
+            List<Address> addressList = coder.getFromLocation(latitude, longitude, 1);
+            if (addressList != null && addressList.size() > 0) {
+                Address address = addressList.get(0);
+                String strAddress = address.getAddressLine(0);
+
+                Log.d("Location", "Address: " + strAddress);
+                etCity.setText(strAddress);
+            } else {
+                Log.e("Location", "Unable to find address for location: (" + latitude + ", " + longitude + ")");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

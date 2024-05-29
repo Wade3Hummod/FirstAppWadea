@@ -37,7 +37,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPhone"
@@ -46,11 +46,25 @@
                 android:hint="Phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageButton
-            android:id="@+id/ibtnGps"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_menu_mylocation" />
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/ibtnGps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/ic_menu_mylocation" />
+
+            <Button
+                android:id="@+id/btnFromAdress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LocationFromAdress" />
+
+        </LinearLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -58,7 +72,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSteet"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Street" />
 
         </com.google.android.material.textfield.TextInputLayout>
