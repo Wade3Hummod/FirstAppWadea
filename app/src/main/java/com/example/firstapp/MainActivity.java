@@ -1,12 +1,16 @@
 package com.example.firstapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.om.FabricatedOverlay;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -93,7 +97,50 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+
     }
+    //بناء قائمة
+
+
+    @Override//بناء القائمه
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if(item.getItemId()==R.id.itmLogout)
+        {
+            Toast.makeText(this, "lOG OUT", Toast.LENGTH_SHORT).show();
+            ShowNoYesDialog();
+        }
+        return true;
+    }
+    public void ShowNoYesDialog()
+    {
+        //تجهيز بناء شباك حوار "ديالوغ" يتلقى بارمتر مؤشر للنشاط (اكتفيتي) الحالي
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("Log out");// تحديد العنوان
+        builder.setMessage("Are you sure?");//تحديد فحوى الشباك الحوار
+        //النص على الزر ومعالج الحدث
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //معالجه الحدث للموافقه
+                Toast.makeText(MainActivity.this,"Signing out",Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(i);
+                FirebaseAuth.getInstance().signOut();
+
+
+            }
+        });
+        AlertDialog dialog= builder.create();// بناء شباك حوار - ديالوغ
+        dialog.show();//عرض الشباك
+    }
+
 
 
     public void OnclickAddPark() {
