@@ -51,6 +51,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="press to locate by gps" />
+
             <ImageButton
                 android:id="@+id/ibtnGps"
                 android:layout_width="wrap_content"
@@ -89,12 +95,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="press to locate by gps" />
 
         <ImageView
             android:id="@+id/imgView"
