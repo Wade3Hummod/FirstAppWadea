@@ -25,37 +25,37 @@
                 android:id="@+id/tvItmStreet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="Street" />
 
             <TextView
                 android:id="@+id/tvItmCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="City" />
 
             <TextView
                 android:id="@+id/tvItmNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="Number" />
 
             <TextView
                 android:id="@+id/tvImLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="Location" />
 
             <TextView
                 android:id="@+id/tvItmUserId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="UserId" />
 
             <TextView
                 android:id="@+id/tvItmParkId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="ParkId" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -64,29 +64,29 @@
 
                 <ImageView
                     android:id="@+id/imgbtnCall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
                     app:srcCompat="@android:drawable/sym_action_call" />
 
                 <ImageView
                     android:id="@+id/imgBtnDeleteitm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
                     app:srcCompat="@android:drawable/btn_dialog" />
 
                 <ImageView
                     android:id="@+id/imgwaze"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
                     app:srcCompat="@mipmap/ic_waze" />
 
                 <ImageView
                     android:id="@+id/imgmaps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
                     app:srcCompat="@mipmap/ic_maps" />
             </LinearLayout>
