@@ -1,0 +1,24 @@
+@startuml
+class com.example.firstapp.SignInActivity {
+- TextInputEditText etEmail
+- TextInputEditText etPassword
+- Button btnSignIn1
+- Button btnSingUp2
+# void onCreate(Bundle)
++ void onclickSignUp(View)
++ void onclicksignIn(View)
+- void checkEmailPassw()
+- void checkEmailPassw_FB()
+}
+note left of com.example.firstapp.SignInActivity::etEmail
+الايميل الشخصي
+end note
+note right of com.example.firstapp.SignInActivity::etPassword
+الرقم السري
+end note
+
+
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.firstapp.SignInActivity
+@enduml

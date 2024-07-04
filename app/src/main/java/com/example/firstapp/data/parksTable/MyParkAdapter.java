@@ -23,6 +23,12 @@ import androidx.annotation.Nullable;
 import androidx.core.content.PermissionChecker;
 
 import com.example.firstapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class MyParkAdapter extends ArrayAdapter<Park> {
@@ -69,7 +75,11 @@ public class MyParkAdapter extends ArrayAdapter<Park> {
         tvUserId.setText(current.getUserId());
         tvParkId.setText(current.getParkId());
 
-
+        final String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        if(email.equals("ww@www.ww")==false)
+        {
+            BtnDelete.setVisibility(View.GONE);
+        }
 
 
         downloadImageUsingPicasso(current.getImage(), imageView1);
@@ -82,10 +92,7 @@ public class MyParkAdapter extends ArrayAdapter<Park> {
         });
         BtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-
-            }
+            public void onClick(View view) {delMyTaskFromDB_FB(current);}
         });
         waze.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,5 +173,60 @@ public class MyParkAdapter extends ArrayAdapter<Park> {
             Toast.makeText(getContext(), "Please install Google Maps", Toast.LENGTH_LONG).show();
         }
     }
+
+    /**
+     * מחיקת פריט כולל התמונה מבסיס הנתונים
+     * @param park הפריט שמוחקים
+     */
+    private void delMyTaskFromDB_FB(Park park)
+    {
+        //הפנייה/כתובת  הפריט שרוצים למחוק
+        FirebaseFirestore db=FirebaseFirestore.getInstance();
+        db.collection("MyParks").document(park.parkId).
+
+                delete().//מאזין אם המחיקה בוצעה
+                addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    remove(park);// מוחקים מהמתאם
+                    deleteFile(park.getImage());// מחיקת הקובץ
+                    Toast.makeText(getContext(), "deleted", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+    /**
+     * מחיקת קובץ האיחסון הענן
+     * @param fileURL כתובת הקובץ המיועד למחיקה
+     */
+    private void deleteFile(String fileURL) {
+        // אם אין תמונה= כתובת ריקה אז לא עושים כלום מפסיקים את הפעולה
+        if(fileURL==null){
+            Toast.makeText(getContext(), "Theres no file to delete!!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // הפניה למיקום הקובץ באיחסון
+        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(fileURL);
+        //מחיקת הקובץ והוספת מאזין שבודק אם ההורדה הצליחה או לא
+        storageReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(getContext(), "file deleted", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getContext(), "onFailure: did not delete file "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
+
+
+
 
 }

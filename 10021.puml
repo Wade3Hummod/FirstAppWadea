@@ -1,0 +1,11 @@
+@startuml
+class com.example.firstapp.SplashScreen {
+- TextView etWelcome
+# void onCreate(Bundle)
+}
+
+
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.firstapp.SplashScreen
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+class com.example.firstapp.SignUpActivity {
+- Button btnSave
+- Button btnCancel
+- TextInputEditText etName
+- TextInputEditText etPhone
+- TextInputEditText etEmail
+- TextInputEditText etPassword
+- TextInputEditText etRe_password
+# void onCreate(Bundle)
++ void onClickSave(View)
+- void saveUser_FB(String,String,String,String)
+- void checkSignUpSave_FB()
+- void checkSignUpSave()
++ void onclickCancel(View)
+}
+note left of com.example.firstapp.SignUpActivity::etName
+الاسم الشخصي
+end note
+note right of com.example.firstapp.SignUpActivity::etPhone
+رقم الهاتف الشخصي
+end note
+note left of com.example.firstapp.SignUpActivity::etEmail
+الايميل الشخصي
+end note
+note right of com.example.firstapp.SignUpActivity::etPassword
+الرقم السري
+end note
+note left of com.example.firstapp.SignUpActivity::etRe_password
+تاكيد الرقم السري
+end note
+
+
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.firstapp.SignUpActivity
+@enduml

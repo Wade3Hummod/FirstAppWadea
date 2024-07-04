@@ -1,0 +1,43 @@
+@startuml
+class com.example.firstapp.data.usersTable.MyUser {
++ long keyid
++ String fullName
++ String email
++ String phone
++ String passw
++ String id
++ String getId()
++ void setId(String)
++ long getKeyid()
++ void setKeyid(long)
++ String getFullName()
++ void setFullName(String)
++ String getEmail()
++ void setEmail(String)
++ String getPhone()
++ void setPhone(String)
++ String getPassw()
++ void setPassw(String)
++ String toString()
+}
+note top of com.example.firstapp.data.usersTable.MyUser
+
+ * فئة تمثل المستعمل
+ 
+end note
+
+note left of com.example.firstapp.data.usersTable.MyUser::keyid
+بحالة لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
+end note
+note right of com.example.firstapp.data.usersTable.MyUser::email
+الايميل الشخصي
+end note
+note left of com.example.firstapp.data.usersTable.MyUser::phone
+رقم الهاتف الشخصي
+end note
+note right of com.example.firstapp.data.usersTable.MyUser::passw
+الرقم السري
+end note
+
+
+@enduml

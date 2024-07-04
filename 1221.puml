@@ -1,0 +1,26 @@
+@startuml
+class com.example.firstapp.data.parksTable.MyParkAdapter {
+- int itemLayout
++ View getView(int,View,ViewGroup)
+- void downloadImageUsingPicasso(String,ImageView)
+- void callAPhoneNymber(String)
++ void openWaze(Park)
++ void openMaps(Park)
+}
+note left of com.example.firstapp.data.parksTable.MyParkAdapter::itemLayout
+המזהה של קובץ עיצוב הפריט
+end note
+
+note left of com.example.firstapp.data.parksTable.MyParkAdapter::downloadImageUsingPicasso(String,ImageView)
+
+     * הצגת תמונה ישירות מהענן בעזרת המחלקה ״פיקאסו״
+     *
+     * @param imageUrL כתובת התמונה בענן/שרת
+     * @param toView   רכיב תמונה המיועד להצגת התמונה אחרי ההורדה
+     
+end note
+
+
+
+android.widget.ArrayAdapter <|-- com.example.firstapp.data.parksTable.MyParkAdapter
+@enduml

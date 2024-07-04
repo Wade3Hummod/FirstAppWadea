@@ -1,0 +1,336 @@
+@startuml
+interface com.example.firstapp.data.usersTable.MyUserQuery {
+~ List<MyUser> getAll()
+~ List<MyUser> loadAllByIds(int[])
+~ MyUser checkEmailPassw(String,String)
+~ MyUser checkEmail(String)
+~ void insertAll(MyUser)
+~ void delete(MyUser)
+~ void delete(int)
+~ void insert(MyUser)
+~ void update(MyUser)
+}
+
+class com.example.firstapp.SplashScreen {
+- TextView etWelcome
+# void onCreate(Bundle)
+}
+
+
+class com.example.firstapp.data.parksTable.MyParkAdapter {
+- int itemLayout
++ View getView(int,View,ViewGroup)
+- void downloadImageUsingPicasso(String,ImageView)
+- void callAPhoneNymber(String)
++ void openWaze(Park)
++ void openMaps(Park)
+}
+note left of com.example.firstapp.data.parksTable.MyParkAdapter::itemLayout
+המזהה של קובץ עיצוב הפריט
+end note
+
+note left of com.example.firstapp.data.parksTable.MyParkAdapter::downloadImageUsingPicasso(String,ImageView)
+
+     * הצגת תמונה ישירות מהענן בעזרת המחלקה ״פיקאסו״
+     *
+     * @param imageUrL כתובת התמונה בענן/שרת
+     * @param toView   רכיב תמונה המיועד להצגת התמונה אחרי ההורדה
+     
+end note
+
+abstract class com.example.firstapp.data.AppDatabase {
+- {static} AppDatabase db
++ {abstract}MyUserQuery getMyUserQuery()
++ {static} AppDatabase getDB(Context)
+}
+note top of com.example.firstapp.data.AppDatabase
+
+تعريف الجداول ورقم النسخة
+version
+عند تغير اي شيء يخص جدول او جداول علينا تغيير رقم الاصدار ليتم بناء قاعدة البيانات من جديد
+ 
+end note
+
+note left of com.example.firstapp.data.AppDatabase::db
+
+     * كائن للتعامل مع قاعدة البيانات
+     
+end note
+
+note left of com.example.firstapp.data.AppDatabase::getMyUserQuery()
+
+     * يعيد كائن لعمليات جدول المستعملين
+     * @return
+     
+end note
+
+class com.example.firstapp.data.usersTable.MyUser {
++ long keyid
++ String fullName
++ String email
++ String phone
++ String passw
++ String id
++ String getId()
++ void setId(String)
++ long getKeyid()
++ void setKeyid(long)
++ String getFullName()
++ void setFullName(String)
++ String getEmail()
++ void setEmail(String)
++ String getPhone()
++ void setPhone(String)
++ String getPassw()
++ void setPassw(String)
++ String toString()
+}
+note top of com.example.firstapp.data.usersTable.MyUser
+
+ * فئة تمثل المستعمل
+ 
+end note
+
+note left of com.example.firstapp.data.usersTable.MyUser::keyid
+بحالة لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
+end note
+note right of com.example.firstapp.data.usersTable.MyUser::email
+الايميل الشخصي
+end note
+note left of com.example.firstapp.data.usersTable.MyUser::phone
+رقم الهاتف الشخصي
+end note
+note right of com.example.firstapp.data.usersTable.MyUser::passw
+الرقم السري
+end note
+
+
+class com.example.firstapp.SignInActivity {
+- TextInputEditText etEmail
+- TextInputEditText etPassword
+- Button btnSignIn1
+- Button btnSingUp2
+# void onCreate(Bundle)
++ void onclickSignUp(View)
++ void onclicksignIn(View)
+- void checkEmailPassw()
+- void checkEmailPassw_FB()
+}
+note left of com.example.firstapp.SignInActivity::etEmail
+الايميل الشخصي
+end note
+note right of com.example.firstapp.SignInActivity::etPassword
+الرقم السري
+end note
+
+
+class com.example.firstapp.AddPark {
+- TextInputEditText etStreet
+- TextInputEditText etCity
+- TextInputEditText etNumber
+- TextInputEditText etPhone
+- Button btnSave
+- Button btnFromAdress
+- ImageButton ibtnGps
+- TextView tvgpslocatoin
+- ImageView imgBtn
+- int IMAGE_PICK_CODE
+- int IMAGE_PERMISSION_CODE
+- Uri toUploadimageUri
+- Uri downladuri
+- Park park
+- MyUser user
+~ FusedLocationProviderClient mFusedLocationClient
+~ int LOCATION_PERMISSION_ID
+- Location location
+- LocationCallback mLocationCallback
+# void onCreate(Bundle)
++ void savepark_FB()
+- void pickImageFromGallery()
+# void onActivityResult(int,int,Intent)
+- void check_IMAGE_Permission()
+- void checkAddPark()
+- void getLastLocation()
+- void requestNewLocationData()
+- boolean checkPermissions()
+- void requestPermissions()
+- boolean isLocationEnabled()
++ void onRequestPermissionsResult(int,String[],int[])
+- void uploadImage(Uri)
++ void onResume()
+- void getLocationFromAddress()
+- void getAddressFromLocation(Context,double,double)
+}
+note top of com.example.firstapp.AddPark
+ https://www.geeksforgeeks.org/how-to-get-user-location-in-android/?ref=header_search
+end note
+
+note left of com.example.firstapp.AddPark::IMAGE_PICK_CODE
+ קוד מזהה לבקשת בחירת תמונה
+end note
+note right of com.example.firstapp.AddPark::IMAGE_PERMISSION_CODE
+קוד מזהה לבחירת הרשאת גישה לקבצים
+end note
+note left of com.example.firstapp.AddPark::toUploadimageUri
+ כתוב הקובץ(תמונה) שרוצים להעלות
+end note
+note right of com.example.firstapp.AddPark::downladuri
+כתובת הקוץ בענן אחרי ההעלאה
+end note
+note left of com.example.firstapp.AddPark::park
+עצם/נתון שרוצים לשמור
+end note
+note right of com.example.firstapp.AddPark::user
+עצם/נתון שרוצים לשמור
+end note
+note left of com.example.firstapp.AddPark::mFusedLocationClient
+ object
+end note
+note right of com.example.firstapp.AddPark::LOCATION_PERMISSION_ID
+ from layout file
+end note
+
+note left of com.example.firstapp.AddPark::onActivityResult(int,int,Intent)
+
+     *
+     * @param requestCode מספר הקשה
+     * @param resultCode תוצאה הבקשה (אם נבחר משהו או בוטלה)
+     * @param data הנתונים שנבחרו
+     
+end note
+note right of com.example.firstapp.AddPark::check_IMAGE_Permission()
+
+     * בדיקה האם יש הרשאה לגישה לקבצים בטלפון
+     
+end note
+note left of com.example.firstapp.AddPark::checkPermissions()
+ method to check for permissions
+end note
+note right of com.example.firstapp.AddPark::requestPermissions()
+ method to request for permissions
+end note
+note left of com.example.firstapp.AddPark::isLocationEnabled()
+ if location is enabled
+end note
+note right of com.example.firstapp.AddPark::onRequestPermissionsResult(int,String[],int[])
+ If everything is alright then
+end note
+note left of com.example.firstapp.AddPark::getLocationFromAddress()
+ Method to get location (latitude and longitude) from an address
+end note
+note right of com.example.firstapp.AddPark::getAddressFromLocation(Context,double,double)
+ Method to get address from a location (latitude and longitude)
+end note
+
+class com.example.firstapp.MainActivity {
++ FloatingActionButton fabAddPark
++ SearchView srhV
++ ListView lstvParks
+- MyParkAdapter parkAdapter
+# void onCreate(Bundle)
+# void onResume()
++ void readParksFrom_FB()
++ boolean onCreateOptionsMenu(android.view.Menu)
++ boolean onOptionsItemSelected(MenuItem)
++ void ShowNoYesDialog()
++ void OnclickAddPark()
+}
+
+note left of com.example.firstapp.MainActivity::readParksFrom_FB()
+
+     *  קריאת נתונים ממסד הנתונים firestore
+     * @return .... רשימת הנתונים שנקראה ממסד הנתונים
+     
+end note
+
+class com.example.firstapp.SignUpActivity {
+- Button btnSave
+- Button btnCancel
+- TextInputEditText etName
+- TextInputEditText etPhone
+- TextInputEditText etEmail
+- TextInputEditText etPassword
+- TextInputEditText etRe_password
+# void onCreate(Bundle)
++ void onClickSave(View)
+- void saveUser_FB(String,String,String,String)
+- void checkSignUpSave_FB()
+- void checkSignUpSave()
++ void onclickCancel(View)
+}
+note left of com.example.firstapp.SignUpActivity::etName
+الاسم الشخصي
+end note
+note right of com.example.firstapp.SignUpActivity::etPhone
+رقم الهاتف الشخصي
+end note
+note left of com.example.firstapp.SignUpActivity::etEmail
+الايميل الشخصي
+end note
+note right of com.example.firstapp.SignUpActivity::etPassword
+الرقم السري
+end note
+note left of com.example.firstapp.SignUpActivity::etRe_password
+تاكيد الرقم السري
+end note
+
+
+class com.example.firstapp.data.parksTable.Park {
++ String street
++ String city
++ int number
++ double lat
++ double lng
++ String userId
++ String parkId
+- String image
+- String phone
++ String getStreet()
++ void setStreet(String)
++ String getCity()
++ void setCity(String)
++ int getNumber()
++ void setNumber(int)
++ void setPhone(String)
++ String getPhone()
++ double getLat()
++ void setLat(double)
++ double getLng()
++ void setLng(double)
++ String getUserId()
++ void setUserId(String)
++ String getParkId()
++ void setParkId(String)
++ String toString()
++ void setImage(String)
++ String getImage()
+}
+note left of com.example.firstapp.data.parksTable.Park::street
+رقم الشارع
+end note
+note right of com.example.firstapp.data.parksTable.Park::city
+ اسم المدينة
+end note
+note left of com.example.firstapp.data.parksTable.Park::number
+عدد المواقف
+end note
+note right of com.example.firstapp.data.parksTable.Park::lat
+هذا خط العرض gps
+end note
+note left of com.example.firstapp.data.parksTable.Park::lng
+خط الطول
+end note
+
+
+interface com.example.firstapp.data.parksTable.ParkQuery {
+}
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.firstapp.SplashScreen
+android.widget.ArrayAdapter <|-- com.example.firstapp.data.parksTable.MyParkAdapter
+androidx.room.RoomDatabase <|-- com.example.firstapp.data.AppDatabase
+androidx.appcompat.app.AppCompatActivity <|-- com.example.firstapp.SignInActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.firstapp.AddPark
+androidx.appcompat.app.AppCompatActivity <|-- com.example.firstapp.MainActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.firstapp.SignUpActivity
+@enduml

@@ -1,0 +1,103 @@
+@startuml
+class com.example.firstapp.AddPark {
+- TextInputEditText etStreet
+- TextInputEditText etCity
+- TextInputEditText etNumber
+- TextInputEditText etPhone
+- Button btnSave
+- Button btnFromAdress
+- ImageButton ibtnGps
+- TextView tvgpslocatoin
+- ImageView imgBtn
+- int IMAGE_PICK_CODE
+- int IMAGE_PERMISSION_CODE
+- Uri toUploadimageUri
+- Uri downladuri
+- Park park
+- MyUser user
+~ FusedLocationProviderClient mFusedLocationClient
+~ int LOCATION_PERMISSION_ID
+- Location location
+- LocationCallback mLocationCallback
+# void onCreate(Bundle)
++ void savepark_FB()
+- void pickImageFromGallery()
+# void onActivityResult(int,int,Intent)
+- void check_IMAGE_Permission()
+- void checkAddPark()
+- void getLastLocation()
+- void requestNewLocationData()
+- boolean checkPermissions()
+- void requestPermissions()
+- boolean isLocationEnabled()
++ void onRequestPermissionsResult(int,String[],int[])
+- void uploadImage(Uri)
++ void onResume()
+- void getLocationFromAddress()
+- void getAddressFromLocation(Context,double,double)
+}
+note top of com.example.firstapp.AddPark
+ https://www.geeksforgeeks.org/how-to-get-user-location-in-android/?ref=header_search
+end note
+
+note left of com.example.firstapp.AddPark::IMAGE_PICK_CODE
+ קוד מזהה לבקשת בחירת תמונה
+end note
+note right of com.example.firstapp.AddPark::IMAGE_PERMISSION_CODE
+קוד מזהה לבחירת הרשאת גישה לקבצים
+end note
+note left of com.example.firstapp.AddPark::toUploadimageUri
+ כתוב הקובץ(תמונה) שרוצים להעלות
+end note
+note right of com.example.firstapp.AddPark::downladuri
+כתובת הקוץ בענן אחרי ההעלאה
+end note
+note left of com.example.firstapp.AddPark::park
+עצם/נתון שרוצים לשמור
+end note
+note right of com.example.firstapp.AddPark::user
+עצם/נתון שרוצים לשמור
+end note
+note left of com.example.firstapp.AddPark::mFusedLocationClient
+ object
+end note
+note right of com.example.firstapp.AddPark::LOCATION_PERMISSION_ID
+ from layout file
+end note
+
+note left of com.example.firstapp.AddPark::onActivityResult(int,int,Intent)
+
+     *
+     * @param requestCode מספר הקשה
+     * @param resultCode תוצאה הבקשה (אם נבחר משהו או בוטלה)
+     * @param data הנתונים שנבחרו
+     
+end note
+note right of com.example.firstapp.AddPark::check_IMAGE_Permission()
+
+     * בדיקה האם יש הרשאה לגישה לקבצים בטלפון
+     
+end note
+note left of com.example.firstapp.AddPark::checkPermissions()
+ method to check for permissions
+end note
+note right of com.example.firstapp.AddPark::requestPermissions()
+ method to request for permissions
+end note
+note left of com.example.firstapp.AddPark::isLocationEnabled()
+ if location is enabled
+end note
+note right of com.example.firstapp.AddPark::onRequestPermissionsResult(int,String[],int[])
+ If everything is alright then
+end note
+note left of com.example.firstapp.AddPark::getLocationFromAddress()
+ Method to get location (latitude and longitude) from an address
+end note
+note right of com.example.firstapp.AddPark::getAddressFromLocation(Context,double,double)
+ Method to get address from a location (latitude and longitude)
+end note
+
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.firstapp.AddPark
+@enduml

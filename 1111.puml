@@ -1,0 +1,49 @@
+@startuml
+class com.example.firstapp.data.parksTable.Park {
++ String street
++ String city
++ int number
++ double lat
++ double lng
++ String userId
++ String parkId
+- String image
+- String phone
++ String getStreet()
++ void setStreet(String)
++ String getCity()
++ void setCity(String)
++ int getNumber()
++ void setNumber(int)
++ void setPhone(String)
++ String getPhone()
++ double getLat()
++ void setLat(double)
++ double getLng()
++ void setLng(double)
++ String getUserId()
++ void setUserId(String)
++ String getParkId()
++ void setParkId(String)
++ String toString()
++ void setImage(String)
++ String getImage()
+}
+note left of com.example.firstapp.data.parksTable.Park::street
+رقم الشارع
+end note
+note right of com.example.firstapp.data.parksTable.Park::city
+ اسم المدينة
+end note
+note left of com.example.firstapp.data.parksTable.Park::number
+عدد المواقف
+end note
+note right of com.example.firstapp.data.parksTable.Park::lat
+هذا خط العرض gps
+end note
+note left of com.example.firstapp.data.parksTable.Park::lng
+خط الطول
+end note
+
+
+@enduml

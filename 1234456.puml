@@ -1,0 +1,26 @@
+@startuml
+class com.example.firstapp.MainActivity {
++ FloatingActionButton fabAddPark
++ SearchView srhV
++ ListView lstvParks
+- MyParkAdapter parkAdapter
+# void onCreate(Bundle)
+# void onResume()
++ void readParksFrom_FB()
++ boolean onCreateOptionsMenu(android.view.Menu)
++ boolean onOptionsItemSelected(MenuItem)
++ void ShowNoYesDialog()
++ void OnclickAddPark()
+}
+
+note left of com.example.firstapp.MainActivity::readParksFrom_FB()
+
+     *  קריאת נתונים ממסד הנתונים firestore
+     * @return .... רשימת הנתונים שנקראה ממסד הנתונים
+     
+end note
+
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.firstapp.MainActivity
+@enduml
